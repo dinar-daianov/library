@@ -22,7 +22,9 @@ class BookController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
             'year' => 'required|integer|min:1900|max:' . date("Y"),
+            'description' => 'required|string'
         ]);
 
         // Создаем новую книгу через Eloquent
@@ -32,7 +34,7 @@ class BookController extends Controller
 
     public function show($id)
     {
-        $book = Book::find($id); // Находим книгу по ID
+        $book = Book::findOrFail($id); // Находим книгу по ID
         return view('books.show', ['book' => $book]);
     }
 

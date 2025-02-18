@@ -9,3 +9,4 @@ Route::post('/books', [BookController::class, 'store']); //Сохранение 
 Route::get('books/{id}/edit}', [BookController::class, 'edit']); //Редактирование книги
 Route::patch('books/{id}', [BookController::class, 'update']); //Обновление книги
 Route::delete('books/{id}', [BookController::class, 'destroy']); //Удаление книги
+Route::resource('books', BookController::class);
