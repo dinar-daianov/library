@@ -1,6 +1,11 @@
 <h1>Добавить книгу</h1>
 <form method="POST" action="/books">
     @csrf
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <label for="title">Название:</label>
     <input type="text" name="title" id="title" required>
     <br>

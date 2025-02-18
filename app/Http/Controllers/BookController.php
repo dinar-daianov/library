@@ -3,44 +3,59 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Book;
+use App\Models\Book; // Используем модель Book
 
 class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::all();
-        return view('books.index', compact('books'));
+        $books = Book::orderBy('year', 'desc')->get(); // Получаем все книги через Eloquent
+        return view('books.index', ['books' => $books]);
     }
 
     public function create()
     {
-       return view('books.create');
+        return view('books.create');
     }
 
     public function store(Request $request)
     {
-        Book::create($request->all());
-        return redirect()->route('books.index');
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'year' => 'required|integer|min:1900|max:' . date("Y"),
+        ]);
+
+        // Создаем новую книгу через Eloquent
+        Book::create($validated);
+        return redirect('/books')->with('success', 'Книга успешно создана!');
     }
 
     public function show($id)
     {
-        view('show');
+        $book = Book::find($id); // Находим книгу по ID
+        return view('books.show', ['book' => $book]);
     }
 
     public function edit($id)
     {
-        view('edit');
+        $book = Book::find($id); // Находим книгу для редактирования
+        return view('books.edit', ['book' => $book]);
     }
 
     public function update(Request $request, $id)
     {
-        view('update');
+        $book = Book::find($id); // Находим книгу
+        $book->update([
+            'title' => $request->input('title'),
+            'year' => $request->input('year'),
+        ]);
+        return redirect('/books');
     }
 
     public function destroy($id)
     {
-        view('destroy');
+        $book = Book::find($id); // Находим книгу
+        $book->delete(); // Удаляем книгу
+        return redirect('/books');
     }
 }
