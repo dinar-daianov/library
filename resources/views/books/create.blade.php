@@ -1,6 +1,6 @@
 <h1>Добавить книгу</h1>
 <form method="POST" action="/books">
-@csfr
+    @csrf
     <label for="title">Название:</label>
     <input type="text" name="title" id="title" required>
     <br>
