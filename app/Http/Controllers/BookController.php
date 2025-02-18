@@ -8,7 +8,7 @@ class BookController extends Controller
 {
     public function index(Request $request)
     {
-        view('index');
+        $query = $request->input('search');
     }
 
     public function create()
