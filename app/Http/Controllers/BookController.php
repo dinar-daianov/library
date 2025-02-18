@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Book;
 
 class BookController extends Controller
 {
     public function index()
     {
-        $books = DB::table("books")->get();
-        return view('books.index', ['books' => $books]);
+        $books = Book::all();
+        return view('books.index', compact('books'));
     }
 
     public function create()
@@ -20,11 +20,8 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-        DB::table("books")->insert([
-            'title' => $request->input("title"),
-            'year' => $request->input("year"),
-        ]);
-        return redirect('/books');
+        Book::create($request->all());
+        return redirect()->route('books.index');
     }
 
     public function show($id)
