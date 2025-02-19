@@ -11,5 +11,8 @@ class Book extends Model
 
     protected $fillable = ['title', 'author','year','description'];
 
-
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
+    }
 }

@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('authors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('brith_year');
-            $table->string('country');
+            $table->string('country')->nullable();
+            $table->date('brithday')->nullable();
+            $table->enum('gender', ['Мужской', 'Женский'])->nullable();
+            $table->timestamps();
         });
     }
 

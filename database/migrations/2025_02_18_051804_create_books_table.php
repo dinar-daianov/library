@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('year');
             $table->text('description')->nullable();
             $table->timestamps();
+            $table->foreignId('author_id')->nullable()->constrained('authors');
         });
     }
 
