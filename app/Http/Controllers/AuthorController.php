@@ -11,7 +11,7 @@ class AuthorController extends Controller
     {
         $authors = Author::all();
 
-        return view('author.index', compact('authors'));
+        return view('authors.index', ['authors' => $authors]);
     }
 
     public function create()
@@ -22,14 +22,14 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'string|required|max:255',
-            'country' => 'nullable|required|max:255',
-            'brithday' => 'date|nullable',
-            'gender' => 'nullable|in:male,female',
+            'name' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'birthday' => 'required|date',
+            'gender' => 'required|in:Мужской,Женский',
         ]);
 
         Author::create($validated);
 
-        return redirect('/authors')->with('success', 'Книга успешно создана!');
+        return redirect()->route('authors.index')->with('success', 'Автор успешно добавлен.');
     }
 }

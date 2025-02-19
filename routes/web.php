@@ -14,7 +14,7 @@ Route::resource('books', BookController::class);
 
 Route::get('/authors', [AuthorController::class, 'index']);
 Route::get('/authors/create', [AuthorController::class, 'create']);
-Route::post('/authors', [AuthorController::class, 'store']);
+Route::post('/authors', [AuthorController::class, 'store'])->name('authors.store');
 Route::get('authors/{id}/edit', [AuthorController::class, 'edit']);
 Route::patch('authors/{id}', [AuthorController::class, 'update']);
 Route::delete('authors/{id}', [AuthorController::class, 'destroy']);

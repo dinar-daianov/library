@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('country')->nullable();
-            $table->date('brithday')->nullable();
+            $table->date('birthday')->nullable();
             $table->enum('gender', ['Мужской', 'Женский'])->nullable();
             $table->timestamps();
         });
