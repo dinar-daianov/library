@@ -5,8 +5,14 @@
     <label for="title">Название:</label>
     <input type="text" name="title" id="title" required>
     <br>
-    <label for="author">Автор</label>
-    <input type="text" name="author" id="author" required>
+    <div class="form-group">
+        <label for="author">Автор</label>
+        <select name="author_id" id="author" class="form-control">
+            @foreach($authors as $author)
+                <option value="{{ $author->id }}">{{ $author->name }}</option>
+            @endforeach
+        </select>
+    </div>
     <br>
     <label for="year">Год издания:</label>
     <input type="number" name="year" id="year" required>

@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Models\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class BookTest extends TestCase
 {
@@ -25,7 +25,7 @@ class BookTest extends TestCase
 
         // 3. Проверяем, что книга добавилась в БД
         $this->assertDatabaseHas('books', [
-            'title' => 'Тестовая книга'
+            'title' => 'Тестовая книга',
         ]);
     }
 
@@ -55,6 +55,7 @@ class BookTest extends TestCase
         ]);
         $response->assertSessionHasErrors('title');
     }
+
     public function test_user_can_view_a_single_book()
     {
         $book = Book::factory()->create();

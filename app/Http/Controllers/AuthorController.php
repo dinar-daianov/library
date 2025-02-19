@@ -10,7 +10,8 @@ class AuthorController extends Controller
     public function index()
     {
         $authors = Author::all();
-        return view('author.index', ['authors' => $authors]);
+
+        return view('author.index', compact('authors'));
     }
 
     public function create()
@@ -20,7 +21,7 @@ class AuthorController extends Controller
 
     public function store(Request $request)
     {
-       $validated = $request->validate([
+        $validated = $request->validate([
             'name' => 'string|required|max:255',
             'country' => 'nullable|required|max:255',
             'brithday' => 'date|nullable',
@@ -28,6 +29,7 @@ class AuthorController extends Controller
         ]);
 
         Author::create($validated);
+
         return redirect('/authors')->with('success', 'Книга успешно создана!');
     }
 }

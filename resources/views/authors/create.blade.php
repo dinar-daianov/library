@@ -1,6 +1,6 @@
 <h1>Добвить автора</h1>
 
-<form>
+<form method="POST" action="/authors">
     @csrf
     <label for="name">Имя автора:</label>
     <input type="text" name="name" id="name" required>
