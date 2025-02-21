@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookRequest;
 use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Http\Request; // Используем модель Book
@@ -22,25 +23,14 @@ class BookController extends Controller
         return view('books.create', compact('authors'));
     }
 
-    public function store(Request $request)
+    public function store(StoreBookRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'author' => 'required|string|max:255',
-            'year' => 'required|integer|min:1900|max:'.date('Y'),
-            'description' => 'nullable|string',
-        ]);
+        $validated = $request->validate();
 
-        $author = Author::firstOrCreate(['name' => $validated['author']]);
 
-        Book::create([
-            'title' => $validated['title'],
-            'author_id' => $author->id,
-            'year' => $validated['year'],
-            'description' => $validated['description'],
-        ]);
+        Book::create($validated);
 
-        return redirect()->route('books.index')->with('success', 'Book created!');
+        return redirect()->route('books.index');
     }
 
     public function show($id)
