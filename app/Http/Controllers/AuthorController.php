@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAuthorRequest;
 use App\Models\Author;
 use Illuminate\Http\Request;
 
@@ -19,14 +20,9 @@ class AuthorController extends Controller
         return view('authors.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreAuthorRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
-            'birthday' => 'required|date',
-            'gender' => 'required|in:Мужской,Женский',
-        ]);
+        $validated = $request->validated;
 
         Author::create($validated);
 

@@ -15,4 +15,12 @@ class Author extends Model
     {
         return $this->hasMany(Book::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($author) {
+            $author->books()->delete();
+        });
+    }
 }
