@@ -22,9 +22,9 @@ class StoreBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|max:255',
+            'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'year' => 'required|integer|min:1900|max:' . (date('Y') + 1),
+            'year' => 'required|integer|min:1900|max:' . date('Y'),
             'author_id' => 'required|exists:authors,id',
         ];
     }

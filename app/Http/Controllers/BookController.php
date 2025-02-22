@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Http\Request; // Используем модель Book
@@ -25,11 +26,8 @@ class BookController extends Controller
 
     public function store(StoreBookRequest $request)
     {
-        $validated = $request->validate();
-
-
+        $validated = $request->validated();
         Book::create($validated);
-
         return redirect()->route('books.index');
     }
 
@@ -42,18 +40,17 @@ class BookController extends Controller
 
     public function edit($id)
     {
-        $book = Book::find($id); // Находим книгу для редактирования
+        $book = Book::findOrFail($id); // Находим книгу для редактирования
 
-        return view('books.edit', ['book' => $book]);
+        return view('books.edit', compact('book'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateBookRequest $request, $id)
     {
-        $book = Book::find($id); // Находим книгу
-        $book->update([
-            'title' => $request->input('title'),
-            'year' => $request->input('year'),
-        ]);
+        $validatedData = $request->validated();
+
+        $book = Book::findOrFail($id);
+        $book->update($validatedData);
 
         return redirect('/books');
     }
