@@ -6,10 +6,21 @@
         @csrf
         @method('PUT')
 
-        <div>
-            <label for="author">
-                <input type="text" name="author" id="author" value="{{ old('author_id', $book->author) }}">
-            </label>
+        <div class="form-group">
+            <label for="author_id">Автор</label>
+                <select name="author_id"
+                        id="author_id"
+                        class="form-control @error('author_id') is-invalid @enderror">
+                    <option value="">Выберите автора</option>
+                    @foreach($authors as $author)
+                        <option value="{{ $author->id }} {{ $book->author_id == $author->id ? 'selected' : '' }}">
+                            {{ $author->name }}
+                        </option>
+                    @endforeach
+                    @error('author_id')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </select>
         </div>
 
         <div>
@@ -30,4 +41,13 @@
 
         <button type="submit">Обновить</button>
     </form>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 @endsection

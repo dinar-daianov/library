@@ -24,7 +24,7 @@ class StoreBookRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'year' => 'required|integer|min:1900|max:' . date('Y'),
+            'year' => 'required|integer|min:1900|max:'.date('Y'),
             'author_id' => 'required|exists:authors,id',
         ];
     }
@@ -33,7 +33,7 @@ class StoreBookRequest extends FormRequest
     {
         return [
             'title.required' => 'Название книги обязательно для заполнения',
-            'year.max' => 'Год издания не может быть в будущем'
+            'year.max' => 'Год издания не может быть в будущем',
         ];
     }
 }

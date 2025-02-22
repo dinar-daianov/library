@@ -6,7 +6,8 @@ use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Author;
 use App\Models\Book;
-use Illuminate\Http\Request; // Используем модель Book
+
+// Используем модель Book
 
 class BookController extends Controller
 {
@@ -28,6 +29,7 @@ class BookController extends Controller
     {
         $validated = $request->validated();
         Book::create($validated);
+
         return redirect()->route('books.index');
     }
 
@@ -41,8 +43,12 @@ class BookController extends Controller
     public function edit($id)
     {
         $book = Book::findOrFail($id); // Находим книгу для редактирования
+        $authors = Author::all();
 
-        return view('books.edit', compact('book'));
+        return view('books.edit', [
+            'book' => $book,
+            'authors' => $authors,
+        ]);
     }
 
     public function update(UpdateBookRequest $request, $id)

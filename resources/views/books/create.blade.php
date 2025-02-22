@@ -6,12 +6,16 @@
     <input type="text" name="title" id="title" required>
     <br>
     <div class="form-group">
-        <label for="author">Автор</label>
-        <select name="author_id" id="author" class="form-control">
+        <label for="author_id">Автор</label>
+        <select name="author_id" id="author_id" class="form-control @error('author_id') is-invalid @enderror">
             @foreach($authors as $author)
-                <option value="{{ $author->id }}">{{ $author->name }}</option>
+                <option value="{{ $author->id }}" {{ $book->author_id == $author->id ? 'selected' : '' }}>{{ $author->name }}</option>
             @endforeach
         </select>
+        @error('author_id')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+
     </div>
     <br>
     <label for="year">Год издания:</label>

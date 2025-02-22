@@ -23,17 +23,16 @@ class UpdateBookRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255',
-            'year' => 'required|integer|min:1900|max:' . (date('Y') + 1),
-            'description' => 'nullable|string',
-            'author_id' => 'required|exists:authors,id'
+            'year' => 'required|integer|min:1900|max:'.(date('Y') + 1),
+            'author_id' => 'required|exists:authors,id',
         ];
     }
 
     public function messages()
     {
         return [
-            'title.required' => 'Поле "Автор" обязательно для заполнения.',
-            'author_id.exists' => 'Выбранный автор не существует.'
+            'author_id.required' => 'Выберите автора книги. ',
+            'author_id.exists' => 'Выбранный автор не существует.',
         ];
     }
 }
